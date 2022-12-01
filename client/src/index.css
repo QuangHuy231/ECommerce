@@ -28,30 +28,6 @@ button {
   border: none;
 }
 
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.product {
-  border: 1px solid #404040;
-  margin: 1rem;
-}
-
-.product img {
-  width: 100%;
-  max-width: 400px;
-}
-
-.product-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-}
-.product-info button {
-  font-size: 16px;
-  font-weight: 600;
-  background-color: aqua;
+.rating span {
+  color: #ffc000;
 }
