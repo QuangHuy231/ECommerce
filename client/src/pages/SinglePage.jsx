@@ -7,6 +7,9 @@ import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import { useParams } from "react-router-dom";
 import Rating from "../components/Rating";
+import Loader from "../components/Loader";
+import Error from "../components/Error";
+import { getError } from "../utils";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -36,7 +39,7 @@ const SinglePage = () => {
         const result = await axios.get(`/api/product/${slug}`);
         dispath({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
-        dispath({ type: "FETCH_FAIL", payload: error.message });
+        dispath({ type: "FETCH_FAIL", payload: getError(error) });
       }
 
       // setProducts(result.data);
@@ -47,9 +50,9 @@ const SinglePage = () => {
   return (
     <div>
       {loading ? (
-        <div>Loading...</div>
+        <Loader />
       ) : err ? (
-        <div>{err}</div>
+        <Error variant="danger">{err}</Error>
       ) : (
         <div>
           <Row>

@@ -5,6 +5,9 @@ import logger from "use-reducer-logger";
 import axios from "axios";
 import { useReducer } from "react";
 import Product from "../components/Product";
+import Loader from "../components/Loader";
+import Error from "../components/Error";
+import { getError } from "../utils";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,7 +36,7 @@ const Home = () => {
         const result = await axios.get("/api/products");
         dispath({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
-        dispath({ type: "FETCH_FAIL", payload: error.message });
+        dispath({ type: "FETCH_FAIL", payload: getError(error) });
       }
 
       // setProducts(result.data);
@@ -45,9 +48,9 @@ const Home = () => {
       <div>
         <h1>Feature Products</h1>
         {loading ? (
-          <div>Loading...</div>
+          <Loader />
         ) : err ? (
-          <div>{err}</div>
+          <Error variant="danger">{err}</Error>
         ) : (
           <Row>
             {products.map((product) => (
