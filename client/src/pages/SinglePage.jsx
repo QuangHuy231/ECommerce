@@ -5,11 +5,14 @@ import Row from "react-bootstrap/Row";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
 import { useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import { getError } from "../utils";
+import { useContext } from "react";
+import { Store } from "../Store";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -47,6 +50,10 @@ const SinglePage = () => {
     fetchProducts();
   }, [slug]);
 
+  const { state, dispath: ctxDispath } = useContext(Store);
+  const addToCartHandler = () => {
+    ctxDispath({ type: "CART_ADD_ITEM", payload: { ...product, quantity: 1 } });
+  };
   return (
     <div>
       {loading ? (
@@ -102,6 +109,15 @@ const SinglePage = () => {
                         </Col>
                       </Row>
                     </ListGroup.Item>
+                    {product.countInStock > 0 && (
+                      <ListGroup.Item>
+                        <div className="d-grid">
+                          <Button onClick={addToCartHandler} variant="primary">
+                            Add to Cart
+                          </Button>
+                        </div>
+                      </ListGroup.Item>
+                    )}
                   </ListGroup>
                 </Card.Body>
               </Card>
