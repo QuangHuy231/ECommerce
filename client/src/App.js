@@ -5,6 +5,7 @@ import SinglePage from "./pages/SinglePage";
 import Container from "react-bootstrap/Container";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import CartScreen from "./pages/CartScreen";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/product/:slug" element={<SinglePage />} />
+              <Route path="/cart" element={<CartScreen />} />
             </Routes>
           </Container>
         </main>

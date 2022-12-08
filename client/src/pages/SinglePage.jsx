@@ -6,7 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
@@ -28,6 +28,7 @@ const reducer = (state, action) => {
 };
 const SinglePage = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const { slug } = params;
   const [{ loading, product, err }, dispath] = useReducer(reducer, {
     product: [],
@@ -61,7 +62,9 @@ const SinglePage = () => {
       return;
     }
     ctxDispath({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    navigate("/cart");
   };
+
   return (
     <div>
       {loading ? (
